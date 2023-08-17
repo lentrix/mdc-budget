@@ -44,6 +44,9 @@ const showingNavigationDropdown = ref(false);
         <div id="container" class="flex-1 bg-gray-100">
             <div id="top-bar" class="bg-blue-200 flex justify-between p-4 shadow-md">
                 <slot name="header" />
+                <div class="flex justify center gap-2">
+                    <slot name="subnav" />
+                </div>
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <!-- Settings Dropdown -->
                     <div class="ml-3 relative">

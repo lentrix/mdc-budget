@@ -31,15 +31,19 @@ var props = defineProps({
                                     <th>Serial</th>
                                     <th>User Name</th>
                                     <th>Full Name</th>
-                                    <th>...</th>
+                                    <th class="text-center">...</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="user in users" :key="user.id">
-                                    <td>{{ user.id }}</td>
+                                    <td>{{ ('0000000' + user.id).slice(-7) }}</td>
                                     <td>{{ user.user_name }}</td>
                                     <td>{{ user.full_name }}</td>
-                                    <td></td>
+                                    <td class="text-center max-w-[24px]">
+                                        <Link :href="'/users/edit/' + user.id">
+                                            <i class="fa-solid fa-user-pen"></i>
+                                        </Link>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

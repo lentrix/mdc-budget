@@ -13,4 +13,10 @@ class UserController extends Controller
             'users' => $users
         ]);
     }
+
+    public function edit(User $user) {
+        return inertia('Users/Edit', [
+            'user' => $user
+        ]);
+    }
 }

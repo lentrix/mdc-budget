@@ -38,7 +38,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/procurement-plans',[ProcurementPlanController::class,'index'])->middleware(['role:budget-officer']);
 
-    Route::get('/users', [UserController::class,'index']);
+    Route::middleware('role:admin')->group(function() {
+        Route::get('/users', [UserController::class,'index']);
+        Route::get('/users/edit/{use}', [UserController::class, 'edit']);
+    });
 });
 
 require __DIR__.'/auth.php';

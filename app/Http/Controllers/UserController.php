@@ -16,10 +16,12 @@ class UserController extends Controller
     }
 
     public function edit(User $user) {
-        $availableRoles = Role::whereNotIn('name', $user->getRoleNames());
+        $assignedRoles = $user->getRoleNames();
+        $availableRoles = Role::whereNotIn('name', $assignedRoles);
         return inertia('Users/Edit', [
             'user' => $user,
-            'availableRoles' => $availableRoles
+            'availableRoles' => $availableRoles->get(),
+            'assignedRoles' => $assignedRoles
         ]);
     }
 
@@ -57,5 +59,17 @@ class UserController extends Controller
         ]);
 
         return redirect('/users')->with('Info','User ' . $user->user_name . " has been created.");
+    }
+
+    public function assign(User $user, Request $request) {
+        if(strcmp($request->action,'assign')==0) {
+            //assign the role
+            $user->assignRole($request->role);
+            return back();
+        }
+
+        $user->removeRole($request->role);
+
+        return back();
     }
 }

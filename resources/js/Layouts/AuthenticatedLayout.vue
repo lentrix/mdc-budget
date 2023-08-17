@@ -14,7 +14,7 @@ const showingNavigationDropdown = ref(false);
     <div class="min-h-screen flex">
         <div id="sidebar" class="min-h-screen max-w-[240px] w-[240px] bg-gray-900 py-8 flex items-center flex-col">
             <a href="/dashboard" class="text-center">
-                <img src="images/MDC-Logo-clipped.png" class="max-w-[120px] w-[120px] mx-auto" alt="">
+                <img src="/images/MDC-Logo-clipped.png" class="max-w-[120px] w-[120px] mx-auto" alt="">
                 <div class="text-xl text-center text-gray-100 mt-3 px-4">MDC Budgeting System</div>
             </a>
 

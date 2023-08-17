@@ -1,10 +1,12 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     user: null,
-    availableRoles: Array
+    availableRoles: Array,
+    assignedRoles: Array
 })
 
 const form = useForm({
@@ -13,9 +15,22 @@ const form = useForm({
     password: ""
 })
 
+const form2 = useForm({
+    role: "",
+    action: ""
+})
+
 const submit = () =>{
     form.patch('/users/' + props.user.id)
 }
+
+function assign(role, action) {
+    form2.role = role
+    form2.action = action
+
+    form2.patch('/users/role/' + props.user.id)
+}
+
 </script>
 
 <template>
@@ -56,16 +71,31 @@ const submit = () =>{
                     </div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-3">
-                    <div class="p-6 text-gray-900 flex">
+                    <div class="p-6 text-gray-900 flex gap-2">
                         <div class="flex-1">
                             <h4 class="text-xl text-center">Available Roles</h4>
                             <ul>
-                                <li v-for="role in availableRoles" :key="role.id">{{ role.name }}</li>
+                                <li class="av-role" v-for="role in availableRoles" :key="role.id" @click="assign(role.name, 'assign')">
+                                    <span>{{ role.name }} </span>
+                                    <i class="fa-solid fa-circle-right"></i>
+                                </li>
                             </ul>
                         </div>
                         <div class="flex-1">
                             <h4 class="text-xl text-center">Assigned Roles</h4>
+                            <ul>
+                                <li class="as-role" v-for="role in assignedRoles" :key="role" @click="assign(role,'revoke')">
+                                    <i class="fa-solid fa-circle-left"></i>
+                                    <span class="text-right">{{ role }}</span>
+                                </li>
+                            </ul>
                         </div>
+                    </div>
+                </div>
+
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-3">
+                    <div class="p-6 text-gray-900 flex gap-2">
+                        <DeleteUserForm class="max-w-xl" :user="props.user" />
                     </div>
                 </div>
 

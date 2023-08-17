@@ -17,8 +17,8 @@ defineProps({
 const user = usePage().props.auth.user;
 
 const form = useForm({
-    name: user.name,
-    email: user.email,
+    full_name: user.full_name,
+    user_name: user.user_name,
 });
 </script>
 
@@ -34,34 +34,35 @@ const form = useForm({
 
         <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="full_name" value="Full Name" />
 
                 <TextInput
-                    id="name"
+                    id="full_name"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.name"
+                    v-model="form.full_name"
                     required
                     autofocus
-                    autocomplete="name"
+                    autocomplete="full_name"
                 />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="form.errors.full_name" />
             </div>
 
             <div>
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="user_name" value="User Name" />
 
                 <TextInput
-                    id="email"
-                    type="email"
+                    id="user_name"
+                    type="text"
                     class="mt-1 block w-full"
-                    v-model="form.email"
+                    v-model="form.user_name"
                     required
-                    autocomplete="username"
+                    autofocus
+                    autocomplete="user_name"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.user_name" />
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">

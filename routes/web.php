@@ -39,8 +39,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/procurement-plans',[ProcurementPlanController::class,'index'])->middleware(['role:budget-officer']);
 
     Route::middleware('role:admin')->group(function() {
+        Route::get('/users/create',[UserController::class, 'create']);
+        Route::patch('/users/{user}', [UserController::class, 'update']);
         Route::get('/users', [UserController::class,'index']);
-        Route::get('/users/edit/{use}', [UserController::class, 'edit']);
+        Route::post('/users',[UserController::class, 'store']);
+        Route::get('/users/edit/{user}', [UserController::class, 'edit']);
     });
 });
 

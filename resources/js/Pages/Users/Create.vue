@@ -2,28 +2,23 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 
-const props = defineProps({
-    user: null,
-    availableRoles: Array
-})
-
 const form = useForm({
-    full_name: props.user.full_name,
-    user_name: props.user.user_name,
+    full_name: "",
+    user_name: "",
     password: ""
 })
 
 const submit = () =>{
-    form.patch('/users/' + props.user.id)
+    form.post('/users')
 }
 </script>
 
 <template>
-    <Head title="Edit User" />
+    <Head title="Create User" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-700 leading-tight">Edit User</h2>
+            <h2 class="font-semibold text-xl text-gray-700 leading-tight">Create User</h2>
         </template>
 
         <div class="py-12">
@@ -34,12 +29,12 @@ const submit = () =>{
                             <div class="form-group">
                                 <label for="user_name">User Name</label>
                                 <input type="text" id="user_name" v-model="form.user_name">
-                                <div class="error-label" v-if="form.user_name.error">{{ form.user_name.error }}</div>
+                                <div class="error-label" v-if="form.errors.user_name">{{ form.errors.user_name }}</div>
                             </div>
                             <div class="form-group">
                                 <label for="full_name">Full Name</label>
                                 <input type="text" id="full_name" v-model="form.full_name">
-                                <div class="error-label" v-if="form.user_name.error">{{ form.full_name.error }}</div>
+                                <div class="error-label" v-if="form.errors.full_name">{{ form.errors.full_name }}</div>
                             </div>
                             <hr>
                             <div class="form-group">
@@ -49,26 +44,12 @@ const submit = () =>{
                             </div>
                             <div class="mt-4">
                                 <button class="button2" type="submit">
-                                    <i class="fa fa-save"></i> Save Changes
+                                    <i class="fa fa-save"></i> Create User
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-3">
-                    <div class="p-6 text-gray-900 flex">
-                        <div class="flex-1">
-                            <h4 class="text-xl text-center">Available Roles</h4>
-                            <ul>
-                                <li v-for="role in availableRoles" :key="role.id">{{ role.name }}</li>
-                            </ul>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="text-xl text-center">Assigned Roles</h4>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </AuthenticatedLayout>

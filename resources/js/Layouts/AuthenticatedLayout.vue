@@ -41,7 +41,7 @@ const showingNavigationDropdown = ref(false);
                 </NavLink>
             </nav>
         </div>
-        <div id="container" class="flex-1 bg-gray-100">
+        <div id="container" class="flex-1 bg-gray-300">
             <div id="top-bar" class="bg-blue-200 flex justify-between p-4 shadow-md">
                 <slot name="header" />
                 <div class="flex justify center gap-2">
@@ -86,6 +86,12 @@ const showingNavigationDropdown = ref(false);
                 </div>
             </div>
             <div>
+                <div v-if="$page.props.flash.Error" class="p-4 bg-red-200 w-[90%] mx-auto rounded-lg shadow m-4 text-red-800">
+                    {{ $page.props.flash.Error }}
+                </div>
+                <div v-if="$page.props.flash.Info" class="p-4 bg-green-200 w-[90%] mx-auto rounded-lg shadow m-4 text-green-800">
+                    {{ $page.props.flash.Info }}
+                </div>
                 <slot />
             </div>
         </div>

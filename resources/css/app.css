@@ -36,7 +36,8 @@ table tr:nth-child(even) {
     @apply block
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
     @apply w-full border border-gray-300 rounded
 }
 

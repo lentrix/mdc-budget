@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProcurementPlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -50,7 +51,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/procurement-plans/{pp}',[ProcurementPlanController::class, 'show']);
         Route::get('/procurement-plans',[ProcurementPlanController::class,'index']);
         Route::post('/procurement-plans',[ProcurementPlanController::class, 'store']);
+
+        Route::get('/departments/create',[DepartmentController::class, 'create']);
+        Route::get('/departments/{dept}',[DepartmentController::class, 'show']);
+        Route::patch('/departments/{dept}',[DepartmentController::class, 'update']);
+        Route::get('/departments/edit/{dept}',[DepartmentController::class, 'edit']);
+        Route::post('/departments',[DepartmentController::class, 'store']);
+        Route::get('/departments',[DepartmentController::class, 'index']);
     });
+
 });
 
 require __DIR__.'/auth.php';

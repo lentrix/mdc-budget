@@ -36,8 +36,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/procurement-plans',[ProcurementPlanController::class,'index'])->middleware(['role:budget-officer']);
-
     Route::middleware('role:admin')->group(function() {
         Route::patch('/users/role/{user}',[UserController::class, 'assign']);
         Route::get('/users/create',[UserController::class, 'create']);
@@ -45,6 +43,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/users', [UserController::class,'index']);
         Route::post('/users',[UserController::class, 'store']);
         Route::get('/users/edit/{user}', [UserController::class, 'edit']);
+    });
+
+    Route::middleware('role:budget-officer')->group(function() {
+        Route::get('/procurement-plans',[ProcurementPlanController::class,'index']);
+        Route::get('/procurement-plans/create',[ProcurementPlanController::class, 'create']);
+        Route::post('/procurement-plans',[ProcurementPlanController::class, 'store']);
     });
 });
 

@@ -1,6 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
+
+const props = defineProps({
+    pps: Array
+})
 </script>
 
 <template>
@@ -9,6 +13,9 @@ import { Head } from '@inertiajs/vue3';
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-700 leading-tight">Annual Procurement Plans</h2>
+        </template>
+        <template #subnav>
+            <Link href="/procurement-plans/create" class="button1">Create Procurment Plan</Link>
         </template>
 
         <div class="py-12">
@@ -22,28 +29,19 @@ import { Head } from '@inertiajs/vue3';
                                     <th>Title</th>
                                     <th>Period</th>
                                     <th>Preparation</th>
+                                    <th>Remarks</th>
+                                    <th class="text-center">...</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
+                                <tr v-for="pp in pps" :key="pp.id">
+                                    <td>{{pp.title}}</td>
+                                    <td>{{pp.period_start_str}} to {{ pp.period_end }}</td>
+                                    <td>{{ pp.prep_start }} to {{ pp.prep_end }}</td>
+                                    <td>{{ pp.remarks }}</td>
+                                    <td class="text-center">
+                                        <Link :href="'/procurement-plans/' + pp.id"><i class="fa fa-folder-open"></i></Link>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

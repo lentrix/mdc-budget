@@ -46,8 +46,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('role:budget-officer')->group(function() {
-        Route::get('/procurement-plans',[ProcurementPlanController::class,'index']);
         Route::get('/procurement-plans/create',[ProcurementPlanController::class, 'create']);
+        Route::get('/procurement-plans/{pp}',[ProcurementPlanController::class, 'show']);
+        Route::get('/procurement-plans',[ProcurementPlanController::class,'index']);
         Route::post('/procurement-plans',[ProcurementPlanController::class, 'store']);
     });
 });

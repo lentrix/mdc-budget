@@ -31,4 +31,10 @@ class ProcurementPlanController extends Controller
 
         return redirect('/procurement-plans')->with('Info','A new procurement plan has been created.');
     }
+
+    public function show(ProcurementPlan $pp) {
+        return inertia('Procurement/Show',[
+            'pp'=>$pp
+        ]);
+    }
 }

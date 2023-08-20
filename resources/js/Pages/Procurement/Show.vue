@@ -68,7 +68,12 @@ const props = defineProps({
                         <div class="bg-blue-100 p-2 rounded mt-3">
                             <div class="pl-4">
                                 <span v-if="pp.active">This procurement plan is currently ACTIVE</span>
-                                <span v-if="!pp.active">This procurement plan is currently INACTIVE</span>
+                                <span v-if="!pp.active">
+                                    This procurement plan is currently INACTIVE
+                                    <div class="p-4 text-center">
+                                        <Link :href="'/procurement-plans/' + pp.id + '/activate'" class="button2" method="post" as="button" type="button">Active This</Link>
+                                    </div>
+                                </span>
                             </div>
                         </div>
 

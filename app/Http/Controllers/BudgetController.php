@@ -19,6 +19,7 @@ class BudgetController extends Controller
     }
 
     public function manage(Budget $budget) {
+        $budget->load('department');
         return inertia('Budgets/Manage',[
             'budget'=>$budget
         ]);

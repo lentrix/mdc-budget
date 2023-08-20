@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProcurementPlan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProcurementPlanController extends Controller
 {
@@ -35,5 +36,13 @@ class ProcurementPlanController extends Controller
         return inertia('Procurement/Show',[
             'pp'=>$pp
         ]);
+    }
+
+    public function activate(ProcurementPlan $pp) {
+        DB::table('procurement_plans')->update(['active'=>0]);
+        $pp->active=1;
+        $pp->save();
+
+        return redirect('/procurement-plans/' . $pp->id)->with('Info','This procurement plan has been activated.');
     }
 }

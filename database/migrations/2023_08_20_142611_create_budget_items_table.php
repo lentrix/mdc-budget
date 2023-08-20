@@ -14,14 +14,11 @@ return new class extends Migration
         Schema::create('budget_items', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('budget_id')->unsigned();
+            $table->bigInteger('item_id')->unsigned();
             $table->integer('qty');
-            $table->string('name');
-            $table->string('description');
-            $table->double('price');
-            $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
+            $table->foreign('item_id')->references('id')->on('items');
             $table->foreign('budget_id')->references('id')->on('budgets');
-            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

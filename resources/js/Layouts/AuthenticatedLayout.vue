@@ -86,11 +86,13 @@ const showingNavigationDropdown = ref(false);
                 </div>
             </div>
             <div>
-                <div v-if="$page.props.flash.Error" class="p-4 bg-red-200 w-[90%] mx-auto rounded-lg shadow m-4 text-red-800">
-                    {{ $page.props.flash.Error }}
-                </div>
-                <div v-if="$page.props.flash.Info" class="p-4 bg-green-200 w-[90%] mx-auto rounded-lg shadow m-4 text-green-800">
-                    {{ $page.props.flash.Info }}
+                <div v-if="$page.props.flash.Error || $page.props.flash.Info" class="px-6 pt-4">
+                    <div v-if="$page.props.flash.Error" class="p-4 bg-red-200 mx-auto rounded-lg shadow m-4 text-red-800">
+                        {{ $page.props.flash.Error }}
+                    </div>
+                    <div v-if="$page.props.flash.Info" class="p-4 bg-green-200 mx-auto rounded-lg shadow m-4 text-green-800">
+                        {{ $page.props.flash.Info }}
+                    </div>
                 </div>
                 <slot />
             </div>

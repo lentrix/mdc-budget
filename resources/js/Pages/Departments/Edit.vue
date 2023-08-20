@@ -1,28 +1,29 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+    import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+    import { Head, useForm } from '@inertiajs/vue3';
 
-const form = useForm({
-    name: '',
-    user_id: '',
-    threshold: ''
-})
+    const form = useForm({
+        name: props.dept.name,
+        user_id: props.dept.user_id,
+        threshold: props.dept.threshold
+    })
 
-const props = defineProps({
-    users: Array
-})
+    const props = defineProps({
+        users: Array,
+        dept: Object
+    })
 
-function submit() {
-    form.post('/departments')
-}
+    function submit() {
+        form.patch('/departments/' + props.dept.id)
+    }
 </script>
 
 <template>
-    <Head title="Create Department" />
+    <Head title="Update Department" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-700 leading-tight">Create Department</h2>
+            <h2 class="font-semibold text-xl text-gray-700 leading-tight">Update Department</h2>
         </template>
 
         <div class="py-12">
@@ -49,7 +50,7 @@ function submit() {
                                 <span class="input-error"></span>
                             </div>
                             <button class="mt-3 button2" type="submit">
-                                <i class="fa fa-save"></i> Create Department
+                                <i class="fa fa-save"></i> Update Department
                             </button>
                         </form>
                     </div>

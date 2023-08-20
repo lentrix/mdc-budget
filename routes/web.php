@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProcurementPlanController;
 use App\Http\Controllers\ProfileController;
@@ -58,6 +59,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/departments/edit/{dept}',[DepartmentController::class, 'edit']);
         Route::post('/departments',[DepartmentController::class, 'store']);
         Route::get('/departments',[DepartmentController::class, 'index']);
+
+        Route::resource('categories', CategoryController::class);
     });
 
 });

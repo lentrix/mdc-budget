@@ -4,8 +4,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
     title: '',
-    period_start: '',
-    period_end: '',
+    year: null,
     prep_start: '',
     prep_end: '',
     remarks: ''
@@ -34,17 +33,13 @@ function submit() {
                                 <input type="text" id="title" v-model="form.title">
                                 <div class="error-label" v-if="form.errors.title">{{ form.errors.title }}</div>
                             </div>
-                            <h5 class="text-xl mt-3">Period</h5>
+
                             <div class="form-group">
-                                <label for="period_start">From</label>
-                                <input type="date" id="period_start" v-model="form.period_start">
-                                <div class="error-label" v-if="form.errors.period_start">{{ form.errors.period_start }}</div>
+                                <label for="year">Year</label>
+                                <input type="number" id="year" v-model="form.year" min="2023">
+                                <div class="error-label" v-if="form.errors.year">{{ form.errors.year }}</div>
                             </div>
-                            <div class="form-group">
-                                <label for="period_end">To</label>
-                                <input type="date" id="period_end" v-model="form.period_end">
-                                <div class="error-label" v-if="form.errors.period_end">{{ form.errors.period_end }}</div>
-                            </div>
+
                             <h5 class="text-xl mt-3">Preparation Timeframe</h5>
                             <div class="form-group">
                                 <label for="prep_start">From</label>

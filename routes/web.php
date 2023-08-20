@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProcurementPlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -61,6 +62,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/departments',[DepartmentController::class, 'index']);
 
         Route::resource('categories', CategoryController::class);
+
+        Route::resource('items', ItemController::class);
     });
 
 });

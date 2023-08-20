@@ -17,7 +17,9 @@ var props = defineProps({
             <h2 class="font-semibold text-xl text-gray-700 leading-tight">User Management</h2>
         </template>
         <template #subnav>
-            <Link href="/users/create" class="button1">Create User</Link>
+            <Link href="/users/create" class="button1">
+                <i class="fa fa-plus"></i> Create User
+            </Link>
         </template>
 
         <div class="py-12">

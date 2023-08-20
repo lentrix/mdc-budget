@@ -15,7 +15,9 @@ const props = defineProps({
             <h2 class="font-semibold text-xl text-gray-700 leading-tight">Annual Procurement Plans</h2>
         </template>
         <template #subnav>
-            <Link href="/procurement-plans/create" class="button1">Create Procurment Plan</Link>
+            <Link href="/procurement-plans/create" class="button1">
+                <i class="fa fa-plus"></i> Create Procurment Plan
+            </Link>
         </template>
 
         <div class="py-12">
@@ -26,18 +28,21 @@ const props = defineProps({
                             <thead>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Period</th>
                                     <th>Preparation</th>
                                     <th>Remarks</th>
+                                    <th>Active</th>
                                     <th class="text-center">...</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="pp in pps" :key="pp.id">
                                     <td>{{pp.title}}</td>
-                                    <td>{{pp.period_start_str}} to {{ pp.period_end }}</td>
                                     <td>{{ pp.prep_start }} to {{ pp.prep_end }}</td>
                                     <td>{{ pp.remarks }}</td>
+                                    <td class="text-center">
+                                        <i class="fa fa-times text-gray-500" v-if="!pp.active"></i>
+                                        <i class="fa fa-check text-green-600" v-if="pp.active"></i>
+                                    </td>
                                     <td class="text-center">
                                         <Link :href="'/procurement-plans/' + pp.id"><i class="fa fa-folder-open"></i></Link>
                                     </td>

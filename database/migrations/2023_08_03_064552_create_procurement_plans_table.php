@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('procurement_plans', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->date('period_start');
-            $table->date('period_end');
+            $table->integer('year');
             $table->date('prep_start');
             $table->date('prep_end');
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
+            $table->boolean('active')->default(0);
             $table->timestamps();
         });
     }

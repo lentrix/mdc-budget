@@ -17,7 +17,9 @@ const props = defineProps({
             <h2 class="font-semibold text-xl text-gray-700 leading-tight">Departments</h2>
         </template>
         <template #subnav>
-            <Link href="/departments/create" class="button1">Create Department</Link>
+            <Link href="/departments/create" class="button1">
+                <i class="fa fa-plus"></i> Create Department
+            </Link>
         </template>
 
         <div class="py-12">

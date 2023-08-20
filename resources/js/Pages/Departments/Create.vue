@@ -33,12 +33,12 @@ function submit() {
                             <div class="form-group">
                                 <label for="name">Department/Office Name</label>
                                 <input type="text" id="name" v-model="form.name">
-                                <span class="input-error"></span>
+                                <div class="error-label" v-if="form.errors.name">{{ form.errors.name }}</div>
                             </div>
                             <div class="form-group">
                                 <label for="threshold">Budget Threshold</label>
                                 <input type="number" id="threshold" v-model="form.threshold">
-                                <span class="input-error"></span>
+                                <div class="error-label" v-if="form.errors.threshold">{{ form.errors.threshold }}</div>
                             </div>
                             <div class="form-group">
                                 <label for="user_id">Assigned User</label>
@@ -46,7 +46,7 @@ function submit() {
                                     <option value="">Select user</option>
                                     <option v-for="user in users" :value="user.id">{{ user.full_name }}</option>
                                 </select>
-                                <span class="input-error"></span>
+                                <div class="error-label" v-if="form.errors.user_id">{{ form.errors.user_id }}</div>
                             </div>
                             <button class="mt-3 button2" type="submit">
                                 <i class="fa fa-save"></i> Create Department

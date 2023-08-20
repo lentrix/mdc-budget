@@ -22,7 +22,7 @@
         </template>
 
         <div class="py-12">
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+            <div class="mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 w-full">
                         <table class="table">
@@ -31,6 +31,7 @@
                                     <th>Item Name</th>
                                     <th>Description</th>
                                     <th>Unit</th>
+                                    <th>Category</th>
                                     <th class="text-right">Regular Price</th>
                                     <th class="text-center">...</th>
                                 </tr>
@@ -40,7 +41,13 @@
                                     <td>{{ item.item_name }}</td>
                                     <td>{{ item.item_description }}</td>
                                     <td>{{ item.unit }}</td>
-                                    <td class="text-right">{{ item.regular_price }}</td>
+                                    <td>{{ item.categoryName }}</td>
+                                    <td class="text-right">{{ item.formattedRegularPrice }}</td>
+                                    <td class="text-center">
+                                        <Link :href="'/items/' + item.id">
+                                            <i class="fa fa-folder-open"></i>
+                                        </Link>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

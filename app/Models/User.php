@@ -43,4 +43,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getBudgetsAttribute() {
+        $pp = ProcurementPlan::getActive();
+
+        $budgets = [];
+
+        foreach(Department::where('user_id', $this->id)->get() as $dept) {
+            $budget = Budget::where('procurement_plan_id', $pp->id)
+                    ->where('department_id', $dept->id)->first();
+            if($budget==null) {
+                $budget = Budget::create([
+                    'procurement_plan_id' => $pp->id,
+                    'department_id' => $dept->id,
+                ]);
+            }
+
+            $budget->load('department');
+
+            $budgets[] = $budget;
+        }
+
+        return $budgets;
+    }
 }

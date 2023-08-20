@@ -39,15 +39,15 @@ const props = defineProps({
                         <hr>
                         <div class="p-2 bg-blue-100 mt-3 rounded">
                             <div class="font-bold text-sm italic">Department/Office</div>
-                            {{ dept.name }}
+                            <span class="pl-4">{{ dept.name }}</span>
                         </div>
                         <div class="p-2 bg-blue-100 mt-3 rounded">
                             <div class="font-bold text-sm italic">Personel In-charge</div>
-                            {{ dept.user.full_name }}
+                            <span class="pl-4">{{ dept.user.full_name }}</span>
                         </div>
                         <div class="p-2 bg-blue-100 mt-3 rounded">
                             <div class="font-bold text-sm italic">Budgetary Threshold</div>
-                            {{ dept.formattedThreshold }}
+                            <span class="pl-4">{{ dept.formattedThreshold }}</span>
                         </div>
 
                         <div class="mt-6">

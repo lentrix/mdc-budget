@@ -48,5 +48,8 @@ class RoleSeeder extends Seeder
         $head->givePermissionTo($updateProfile);
         $budgetOfficer->givePermissionTo($updateProfile);
 
+        $admin->givePermissionTo('manage-budget');
+        $head->givePermissionTo('manage-budget');
+
     }
 }

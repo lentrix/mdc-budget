@@ -16,7 +16,7 @@ const props = defineProps({
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 sm:flex justify-between">
+            <div class="mx-auto sm:px-6 lg:px-8 sm:flex justify-between">
                 <div class="flex-1 px-6">
                     <div class="bg-white rounded shadow p-6">
                         <h4 class="text-xl">Departmental Appropriations</h4>

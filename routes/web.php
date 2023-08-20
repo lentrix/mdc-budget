@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ItemController;
@@ -64,6 +65,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('categories', CategoryController::class);
 
         Route::resource('items', ItemController::class);
+    });
+
+    Route::middleware('can:manage-budget')->group(function(){
+        Route::get('/budgets/{budget}/manage',[BudgetController::class,'manage']);
+        Route::get('/budgets',[BudgetController::class, 'index']);
     });
 
 });

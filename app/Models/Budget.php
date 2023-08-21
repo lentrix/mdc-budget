@@ -29,4 +29,15 @@ class Budget extends Model
             ->where('categories.type', $category)
             ->sum(DB::raw('budget_items.custom_price * budget_items.qty'));
     }
+
+    public function summaryStatement($category) {
+        return DB::table('budget_items')
+            ->join('items','items.id','budget_items.item_id')
+            ->join('categories','categories.id','items.category_id')
+            ->where('budget_items.budget_id', $this->id)
+            ->where('categories.type', $category)
+            ->groupBy('category_name')
+            ->select(DB::raw('categories.category_name, SUM(budget_items.custom_price * budget_items.qty) AS amount'))
+            ->get();
+    }
 }

@@ -15,8 +15,24 @@ class BudgetController extends Controller
 
         $budgets = $user->budgets;
 
+        $summaries = [];
+
+        foreach($budgets as $budget) {
+            $summaries[] = [
+                'capex' => [
+                    'summary'=>$budget->summaryStatement('capex'),
+                    'total'=>$budget->categoryTotal('capex')
+                ],
+                'opex' => [
+                    'summary'=>$budget->summaryStatement('opex'),
+                    'total'=>$budget->categoryTotal('opex')
+                ]
+            ];
+        }
+
         return inertia('Budgets/Index',[
-            'budgets'=>$budgets
+            'budgets'=>$budgets,
+            'summaries'=>$summaries
         ]);
     }
 

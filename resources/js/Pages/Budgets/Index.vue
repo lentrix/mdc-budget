@@ -4,6 +4,7 @@
 
     const props = defineProps({
         budgets: Array,
+        summaries: Object
     })
 </script>
 
@@ -17,7 +18,7 @@
 
         <div class="py-12">
             <div class="sm:px-6 lg:px-8 grid grid-cols-2 gap-6">
-                <div class="p-6 bg-white shadow rounded-lg" v-for="budget in budgets" :key="budget.id">
+                <div class="p-6 bg-white shadow rounded-lg" v-for="(budget, index) in budgets" :key="budget.id">
                     <div class="flex justify-between">
                         <h4 class="text-2xl">{{ budget.department.name }}</h4>
                         <Link :href="'/budgets/' + budget.id + '/manage'" class="button2">
@@ -26,6 +27,37 @@
                     </div>
                     <hr class="mt-2">
 
+                    <h4 class="text-xl font-bold">
+                        I. Operational Expenses
+                    </h4>
+                    <div class="pl-8">
+                        <table class="w-full">
+                            <tr v-for="item in summaries[index].opex.summary">
+                                <td>{{ item.category_name }}</td>
+                                <td class="text-right">{{ item.amount }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">TOTAL</td>
+                                <td class="text-right">{{ summaries[index].opex.total }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <h4 class="text-xl font-bold">
+                        II. Capital Expenditures
+                    </h4>
+                    <div class="pl-8">
+                        <table class="w-full">
+                            <tr v-for="item in summaries[index].capex.summary">
+                                <td>{{ item.category_name }}</td>
+                                <td class="text-right">{{ item.amount }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">TOTAL</td>
+                                <td class="text-right">{{ summaries[index].capex.total }}</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

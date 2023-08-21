@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Budget extends Model
 {
@@ -18,5 +19,14 @@ class Budget extends Model
 
     public function approvedBy() {
         return $this->belongsTo('App\Models\User','approved_by','id');
+    }
+
+    public function categoryTotal($category) {
+        return DB::table('budget_items')
+            ->join('items','items.id','budget_items.item_id')
+            ->join('categories','categories.id','items.category_id')
+            ->where('budget_items.budget_id', $this->id)
+            ->where('categories.type', $category)
+            ->sum(DB::raw('budget_items.custom_price * budget_items.qty'));
     }
 }

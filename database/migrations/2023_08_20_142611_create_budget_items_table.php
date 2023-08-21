@@ -16,6 +16,8 @@ return new class extends Migration
             $table->bigInteger('budget_id')->unsigned();
             $table->bigInteger('item_id')->unsigned();
             $table->integer('qty');
+            $table->double('custom_price')->nullable();
+            $table->string('remarks')->nullable();
             $table->timestamps();
             $table->foreign('item_id')->references('id')->on('items');
             $table->foreign('budget_id')->references('id')->on('budgets');

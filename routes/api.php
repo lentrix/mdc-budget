@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('/items/search', function(Request $request) {
+    $items = Item::where('item_name','like',"%$request->name%");
+    return response()->json($items->limit(50)->get());
 });

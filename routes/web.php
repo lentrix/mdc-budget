@@ -69,7 +69,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('can:manage-budget')->group(function(){
+        Route::delete('/budgets/delete-item',[BudgetController::class,'deleteItem']);
         Route::get('/budgets/{budget}/manage',[BudgetController::class,'manage']);
+        Route::post('/budgets/{budget}/add-item',[BudgetController::class, 'addItem']);
         Route::get('/budgets',[BudgetController::class, 'index']);
     });
 

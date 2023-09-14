@@ -13,7 +13,7 @@
 }
 
 .table tr th {
-    @apply bg-blue-100
+    @apply bg-blue-100 text-blue-900
 }
 
 .table tr:nth-child(even) {

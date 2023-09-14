@@ -18,7 +18,8 @@
         item_id: null,
         qty: 1,
         budget_id: props.budget.id,
-        price: null
+        price: null,
+        remarks: ''
     })
 
     const deleteForm = useForm({
@@ -61,6 +62,10 @@
     }
 
     function submitItem() {
+        if(form.price!=searchData.price && (form.remarks=='' || form.remarks==null)) {
+            alert('You have to provide a reason for changing the price in the remarks field.')
+            return
+        }
         form.post('/budgets/' + props.budget.id + "/add-item",{
             onSuccess: () => {
                 searchName.value = null
@@ -156,7 +161,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="price">Price</label>
-                                <input type="number" step="0.50" v-model="form.price">
+                                <input type="number" step="0.50" :readonly="form.remarks==''" v-model="form.price">
                                 <div class="error-label" v-if="form.errors.price">{{ form.errors.price }}</div>
                             </div>
                             <div class="form-group">
@@ -195,7 +200,11 @@
                             </thead>
                             <tbody>
                                 <tr v-for="item in opex" :key="item.id">
-                                    <td>{{ item.item.item_name }}</td>
+                                    <td class="flex">
+                                        <div class="flex-1">{{ item.item.item_name }}</div>
+                                        <i class="fa cursor-pointer fa-info text-sm flex justify-center items-center text-center p-1 bg-blue-500 w-[20px] h-[20px] rounded-full" style="position: right: 0px"
+                                            v-if="item.remarks" :title="item.remarks"></i>
+                                    </td>
                                     <td>{{ item.item.item_description }}</td>
                                     <td>{{ item.item.category.category_name }}</td>
                                     <td class="text-center">{{ item.qty }}</td>

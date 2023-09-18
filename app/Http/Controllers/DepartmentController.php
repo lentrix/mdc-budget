@@ -13,6 +13,7 @@ class DepartmentController extends Controller
             ->get()
             ->map(function($dept, $index) {
                 return [
+                    'id'=>$dept->id,
                     'departmentName' => $dept->name,
                     'threshold' => $dept->threshold,
                     'appropriations' => $dept->activeBudget?->totalAppropriations,

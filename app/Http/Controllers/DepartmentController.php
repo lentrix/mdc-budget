@@ -15,7 +15,7 @@ class DepartmentController extends Controller
                 return [
                     'departmentName' => $dept->name,
                     'threshold' => $dept->threshold,
-                    'appropriations' => $dept->activeBudget->totalAppropriations->amount,
+                    'appropriations' => $dept->activeBudget?->totalAppropriations,
                     'inCharge' => $dept->user->full_name,
                 ];
             });

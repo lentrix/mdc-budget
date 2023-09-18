@@ -40,7 +40,7 @@ const props = defineProps({
                                 <tr v-for="dept in depts" :key="dept.id">
                                     <td>{{ dept.departmentName }}</td>
                                     <td class="text-right">{{ dept.threshold.toLocaleString() }}</td>
-                                    <td></td>
+                                    <td class="text-right">{{ dept.appropriations ? dept.appropriations.toLocaleString() : 0 }}</td>
                                     <td>{{ dept.inCharge }}</td>
                                     <td class="text-center">
                                         <Link :href="'/departments/' + dept.id">

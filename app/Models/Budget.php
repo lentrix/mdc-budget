@@ -61,6 +61,6 @@ class Budget extends Model
     public function getTotalAppropriationsAttribute() {
         return BudgetItem::where('budget_id', $this->id)
             ->select(DB::raw("SUM(qty * custom_price) AS 'amount'"))
-            ->get();
+            ->first()->amount;
     }
 }

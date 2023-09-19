@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BudgetItem;
 use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Http\Request;
@@ -39,8 +40,25 @@ class ItemController extends Controller
     }
 
     public function show(Item $item) {
+        $budgetItems = BudgetItem::where('item_id', $item->id)
+                ->whereHas('budget', function($q1){
+                    $q1->whereHas('procurementPlan', function($q2){
+                        $q2->where('active', 1);
+                    });
+                })->get()
+                ->map(function($bi, $idx) {
+                    return [
+                        'id' => $bi->id,
+                        'department' => $bi->budget->department->name,
+                        'qty' => $bi->qty,
+                        'price' => $bi->custom_price,
+                        'amount' => $bi->custom_price*$bi->qty
+                    ];
+                });
+
         return inertia('Items/Show',[
-            'item' => $item
+            'item' => $item,
+            'budgetItems' => $budgetItems
         ]);
     }
 

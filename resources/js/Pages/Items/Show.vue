@@ -3,7 +3,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 const props = defineProps({
-    item: Object
+    item: Object,
+    budgetItems: Array
 })
 </script>
 
@@ -15,12 +16,36 @@ const props = defineProps({
             <h2 class="font-semibold text-xl text-gray-700 leading-tight">View Item: {{item?.item_name}}</h2>
         </template>
 
+        <template #subnav>
+            <Link href="/items" class="button1">
+                <i class="fa-solid fa-backward"></i> Back
+            </Link>
+        </template>
+
         <div class="py-12">
             <div class="mx-auto sm:px-6 lg:px-8 sm:flex justify-between">
                 <div class="flex-1 px-6">
                     <div class="bg-white rounded shadow p-6">
                         <h4 class="text-xl">Departmental Appropriations</h4>
                         <hr>
+                        <table class="table mt-6 shadow">
+                            <thead>
+                                <tr>
+                                    <th>Department</th>
+                                    <th class="text-center">Qty</th>
+                                    <th class="text-right">Price</th>
+                                    <th class="text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="bi in budgetItems" :key="bi.id">
+                                    <td>{{ bi.department }}</td>
+                                    <td class="text-center">{{ bi.qty }}</td>
+                                    <td class="text-right">{{ bi.price.toLocaleString() }}</td>
+                                    <td class="text-right">{{ bi.amount.toLocaleString() }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div style="min-width: 400px!important;">

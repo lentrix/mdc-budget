@@ -42,7 +42,9 @@ class Budget extends Model
                 'item' => $bitem->item->item_name,
                 'description' => $bitem->item->item_description,
                 'price' => $bitem->custom_price,
-                'qty' => $bitem->qty
+                'regularPrice' => $bitem->item->regular_price,
+                'qty' => $bitem->qty,
+                'remarks' => $bitem->remarks
             ];
         });
     }

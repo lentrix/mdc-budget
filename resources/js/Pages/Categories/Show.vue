@@ -1,9 +1,11 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import { Head, Link } from '@inertiajs/vue3';
+    import Price from '@/Components/Price.vue';
 
     const props = defineProps({
-        category: Object
+        category: Object,
+        budgetItems: Array
     })
 </script>
 
@@ -16,14 +18,36 @@
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 sm:flex justify-between">
+            <div class="mx-auto sm:px-6 lg:px-8 sm:flex justify-between">
                 <div class="flex-1 px-6">
                     <div class="bg-white rounded shadow p-6">
                         <h4 class="text-xl">Departmental Appropriations</h4>
                         <hr>
+                        <table class="table mt-6">
+                            <thead>
+                                <tr>
+                                    <th>Department</th>
+                                    <th>Item</th>
+                                    <th class="text-center">Qty</th>
+                                    <th class="text-right">Price</th>
+                                    <th class="text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="bi in budgetItems" :key="bi.id">
+                                    <td>{{ bi.department }}</td>
+                                    <td>{{ bi.item }}</td>
+                                    <td class="text-center">{{ bi.qty }}</td>
+                                    <td class="text-right">
+                                        <Price :regularPrice="bi.regularPrice" :customPrice="bi.price" :remarks="bi.remarks"  />
+                                    </td>
+                                    <td class="text-right">{{ bi.amount.toLocaleString() }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div style="min-width: 400px!important;">
+                <div style="min-width: 300px!important;">
                     <div class="bg-white rounded shadow p-6">
                         <h4 class="text-xl">Category Details</h4>
                         <hr>

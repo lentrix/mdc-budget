@@ -52,7 +52,9 @@ class ItemController extends Controller
                         'department' => $bi->budget->department->name,
                         'qty' => $bi->qty,
                         'price' => $bi->custom_price,
-                        'amount' => $bi->custom_price*$bi->qty
+                        'regularPrice' => $bi->item->regular_price,
+                        'amount' => $bi->custom_price*$bi->qty,
+                        'remarks' => $bi->remarks
                     ];
                 });
 

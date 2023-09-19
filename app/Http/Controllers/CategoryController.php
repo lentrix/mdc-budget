@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BudgetItem;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -34,8 +35,28 @@ class CategoryController extends Controller
     }
 
     public function show(Category $category) {
+        $budgetItems = BudgetItem::whereHas('item', function($q1) use($category) {
+            $q1->where('category_id', $category->id);
+        })->whereHas('budget', function($q2) {
+            $q2->whereHas('procurementPlan', function($q3){
+                $q3->where('active', 1);
+            });
+        })->get()
+        ->map(function($bi, $idx){
+            return [
+                'department' => $bi->budget->department->name,
+                'item' => $bi->item->item_name,
+                'qty' => $bi->qty,
+                'price' => $bi->custom_price,
+                'regularPrice' => $bi->item->regular_price,
+                'amount' => $bi->qty * $bi->custom_price,
+                'remarks' => $bi->remarks
+            ];
+        });
+
         return inertia('Categories/Show',[
-            'category'=>$category
+            'category'=>$category,
+            'budgetItems' => $budgetItems
         ]);
     }
 

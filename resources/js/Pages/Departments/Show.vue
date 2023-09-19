@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+import Price from '@/Components/Price.vue'
 
 const props = defineProps({
     dept: Object,
@@ -8,7 +9,8 @@ const props = defineProps({
     capex: Object,
     opexTotal: Number,
     capexTotal: Number,
-    total: Number
+    total: Number,
+    remarks: String
 })
 
 </script>
@@ -31,16 +33,18 @@ const props = defineProps({
                             <thead>
                                 <tr><td colspan="4" class="bg-gray-900 text-gray-100">Operating Expenses</td></tr>
                                 <tr>
-                                    <th>Description</th>
-                                    <th class="text-right">Price</th>
-                                    <th class="text-center">Qty</th>
-                                    <th class="text-right">Projected Amount</th>
+                                    <th class="w-[70%]">Description</th>
+                                    <th class="w-[11%] text-right">Price</th>
+                                    <th class="w-[8%] text-center">Qty</th>
+                                    <th class="w-[11%] text-right">Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="item in opex" :key="item.id">
                                     <td>{{ item.description }}</td>
-                                    <td class="text-right">{{ item.price.toLocaleString() }}</td>
+                                    <td class="text-right">
+                                        <Price :regularPrice="item.regularPrice" :customPrice="item.price" :remarks="item.remarks"  />
+                                    </td>
                                     <td class="text-center">{{ item.qty.toLocaleString() }}</td>
                                     <td class="text-right">{{ (item.price*item.qty).toLocaleString() }}</td>
                                 </tr>
@@ -57,16 +61,18 @@ const props = defineProps({
                             <thead>
                                 <tr><td colspan="4" class="bg-gray-900 text-gray-100">Capital Expenditures</td></tr>
                                 <tr>
-                                    <th>Description</th>
-                                    <th class="text-right">Price</th>
-                                    <th class="text-center">Qty</th>
-                                    <th class="text-right">Projected Amount</th>
+                                    <th class="w-[70%]">Description</th>
+                                    <th class="w-[11%] text-right">Price</th>
+                                    <th class="w-[8%] text-center">Qty</th>
+                                    <th class="w-[11%] text-right">Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="item in capex" :key="item.id">
                                     <td>{{ item.description }}</td>
-                                    <td class="text-right">{{ item.price.toLocaleString() }}</td>
+                                    <td class="text-right">
+                                        <Price :regularPrice="item.regularPrice" :customPrice="item.price" :remarks="item.remarks"  />
+                                    </td>
                                     <td class="text-center">{{ item.qty.toLocaleString() }}</td>
                                     <td class="text-right">{{ (item.price*item.qty).toLocaleString() }}</td>
                                 </tr>

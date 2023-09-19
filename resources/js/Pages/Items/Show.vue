@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+import Price from '@/Components/Price.vue'
 
 const props = defineProps({
     item: Object,
@@ -41,7 +42,9 @@ const props = defineProps({
                                 <tr v-for="bi in budgetItems" :key="bi.id">
                                     <td>{{ bi.department }}</td>
                                     <td class="text-center">{{ bi.qty }}</td>
-                                    <td class="text-right">{{ bi.price.toLocaleString() }}</td>
+                                    <td class="text-right">
+                                        <Price :regularPrice="bi.regularPrice" :customPrice="bi.price" :remarks="bi.remarks"  />
+                                    </td>
                                     <td class="text-right">{{ bi.amount.toLocaleString() }}</td>
                                 </tr>
                             </tbody>

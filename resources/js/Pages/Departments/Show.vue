@@ -3,9 +3,13 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 const props = defineProps({
-    dept: Object
+    dept: Object,
+    opex: Object,
+    capex: Object,
+    opexTotal: Number,
+    capexTotal: Number,
+    total: Number
 })
-
 
 </script>
 
@@ -22,18 +26,70 @@ const props = defineProps({
                 <div class="flex-1 px-6">
                     <div class="bg-white rounded shadow p-6">
                         <h4 class="text-xl">Budgetary Details</h4>
-                        <table class="table">
+
+                        <table class="table mt-3 shadow-lg">
                             <thead>
+                                <tr><td colspan="4" class="bg-gray-900 text-gray-100">Operating Expenses</td></tr>
                                 <tr>
-                                    <th>Item</th>
                                     <th>Description</th>
-                                    <th>Projected Amount</th>
+                                    <th class="text-right">Price</th>
+                                    <th class="text-center">Qty</th>
+                                    <th class="text-right">Projected Amount</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                <tr v-for="item in opex" :key="item.id">
+                                    <td>{{ item.description }}</td>
+                                    <td class="text-right">{{ item.price.toLocaleString() }}</td>
+                                    <td class="text-center">{{ item.qty.toLocaleString() }}</td>
+                                    <td class="text-right">{{ (item.price*item.qty).toLocaleString() }}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" class="text-left">TOTAL OPEX</th>
+                                    <th class="text-right font-bold">
+                                        {{ opexTotal.toLocaleString() }}
+                                    </th>
+                                </tr>
+                            </tbody>
                         </table>
+
+                        <table class="table mt-6 shadow-lg">
+                            <thead>
+                                <tr><td colspan="4" class="bg-gray-900 text-gray-100">Capital Expenditures</td></tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <th class="text-right">Price</th>
+                                    <th class="text-center">Qty</th>
+                                    <th class="text-right">Projected Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in capex" :key="item.id">
+                                    <td>{{ item.description }}</td>
+                                    <td class="text-right">{{ item.price.toLocaleString() }}</td>
+                                    <td class="text-center">{{ item.qty.toLocaleString() }}</td>
+                                    <td class="text-right">{{ (item.price*item.qty).toLocaleString() }}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" class="text-left">TOTAL CAPEX</th>
+                                    <th class="text-right font-bold">
+                                        {{ capexTotal.toLocaleString() }}
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="bg-gray-900 p-2 mt-6 text-gray-100 flex">
+                            <div class="flex-1 font-bold">
+                                TOTAL APPROPRIATIONS
+                            </div>
+                            <div class="font-bold">
+                                {{ total.toLocaleString() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div style="min-width: 400px!important;">
+                <div style="min-width: 300px!important;">
                     <div class="bg-white rounded shadow p-6">
                         <h4 class="text-xl">Department Details</h4>
                         <hr>

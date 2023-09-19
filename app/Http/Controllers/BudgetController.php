@@ -32,7 +32,8 @@ class BudgetController extends Controller
 
         return inertia('Budgets/Index',[
             'budgets'=>$budgets,
-            'summaries'=>$summaries
+            'summaries'=>$summaries,
+            'total' => $budget->categoryTotal('opex') + $budget->categoryTotal('capex')
         ]);
     }
 

@@ -31,15 +31,17 @@ const props = defineProps({
                                 <tr>
                                     <th>Departent/Office</th>
                                     <th class="text-right">Budget Threshold</th>
+                                    <th>Appropriations</th>
                                     <th>In-charge</th>
                                     <th class="text-center">...</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="dept in depts" :key="dept.id">
-                                    <td>{{ dept.name }}</td>
-                                    <td class="text-right">{{ dept.formattedThreshold }}</td>
-                                    <td>{{ dept.user.full_name }}</td>
+                                    <td>{{ dept.departmentName }}</td>
+                                    <td class="text-right">{{ dept.threshold.toLocaleString() }}</td>
+                                    <td></td>
+                                    <td>{{ dept.inCharge }}</td>
                                     <td class="text-center">
                                         <Link :href="'/departments/' + dept.id">
                                             <i class="fa fa-folder-open"></i>

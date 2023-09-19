@@ -163,7 +163,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="price">Price</label>
-                                <input type="number" step="0.50" :readonly="form.remarks==''" v-model="form.price">
+                                <input type="number" step="1" :readonly="form.remarks==''" v-model="form.price">
                                 <div class="error-label" v-if="form.errors.price">{{ form.errors.price }}</div>
                             </div>
                             <div class="form-group">

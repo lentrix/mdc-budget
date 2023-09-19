@@ -17,4 +17,11 @@ class Department extends Model
     public function getFormattedThresholdAttribute() {
         return number_format($this->threshold, 2,".",",");
     }
+
+    public function getActiveBudgetAttribute() {
+        return Budget::where('department_id', $this->id)
+                ->whereHas('procurementPlan', function($q1) {
+                    $q1->where('active',1);
+                })->first();
+    }
 }

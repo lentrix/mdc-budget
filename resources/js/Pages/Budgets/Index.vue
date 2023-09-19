@@ -4,7 +4,8 @@
 
     const props = defineProps({
         budgets: Array,
-        summaries: Object
+        summaries: Object,
+        total: Number
     })
 </script>
 
@@ -34,11 +35,11 @@
                         <table class="w-full">
                             <tr v-for="item in summaries[index].opex.summary">
                                 <td>{{ item.category_name }}</td>
-                                <td class="text-right">{{ item.amount }}</td>
+                                <td class="text-right">{{ item.amount.toLocaleString() }}</td>
                             </tr>
                             <tr>
                                 <td class="font-bold">TOTAL</td>
-                                <td class="text-right">{{ summaries[index].opex.total }}</td>
+                                <td class="text-right">{{ summaries[index].opex.total.toLocaleString() }}</td>
                             </tr>
                         </table>
                     </div>
@@ -50,11 +51,20 @@
                         <table class="w-full">
                             <tr v-for="item in summaries[index].capex.summary">
                                 <td>{{ item.category_name }}</td>
-                                <td class="text-right">{{ item.amount }}</td>
+                                <td class="text-right">{{ item.amount.toLocaleString() }}</td>
                             </tr>
                             <tr>
                                 <td class="font-bold">TOTAL</td>
-                                <td class="text-right">{{ summaries[index].capex.total }}</td>
+                                <td class="text-right">{{ summaries[index].capex.total.toLocaleString() }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="pl-8 pt-6">
+                        <table class="w-full">
+                            <tr>
+                                <td class="font-bold">TOTAL APPROPRIATIONS</td>
+                                <td class="text-right font-bold">{{ total.toLocaleString() }}</td>
                             </tr>
                         </table>
                     </div>

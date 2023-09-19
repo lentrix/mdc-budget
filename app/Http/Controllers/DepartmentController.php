@@ -10,8 +10,15 @@ class DepartmentController extends Controller
 {
     public function index() {
         $depts = Department::orderBy('name')
-            ->with('user')
-            ->get();
+            ->get()
+            ->map(function($dept, $index) {
+                return [
+                    'departmentName' => $dept->name,
+                    'threshold' => $dept->threshold,
+                    'appropriations' => $dept->activeBudget->totalAppropriations->amount,
+                    'inCharge' => $dept->user->full_name,
+                ];
+            });
 
         return inertia('Departments/Index',[
             'depts' => $depts
@@ -40,7 +47,12 @@ class DepartmentController extends Controller
     public function show(Department $dept) {
         $dept->load('user');
         return inertia('Departments/Show',[
-            'dept' => $dept
+            'dept' => $dept,
+            'opex' => $dept->activeBudget->getItemsByType('opex'),
+            'capex' => $dept->activeBudget->getItemsByType('capex'),
+            'opexTotal' => $tot_opex = $dept->activeBudget->categoryTotal('opex'),
+            'capexTotal' => $tot_capex = $dept->activeBudget->categoryTotal('capex'),
+            'total' => ($tot_opex+$tot_capex)
         ]);
     }
 

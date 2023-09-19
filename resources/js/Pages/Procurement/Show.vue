@@ -3,7 +3,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 const props = defineProps({
-    pp: null
+    pp: null,
+    budgets: Array
 })
 </script>
 
@@ -25,11 +26,19 @@ const props = defineProps({
                             <thead>
                                 <tr>
                                     <th>Department/Office</th>
-                                    <th>Budget Threshold</th>
-                                    <th>Current Allocation</th>
+                                    <th class="text-right">Budget Threshold</th>
+                                    <th class="text-right">Current Appropriation</th>
                                     <th>Prepared by</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                <tr v-for="b in budgets" :key="b.id">
+                                    <td>{{ b.department }}</td>
+                                    <td class="text-right">{{ b.threshold.toLocaleString() }}</td>
+                                    <td class="text-right">{{ b.appropriation.toLocaleString() }}</td>
+                                    <td>{{ b.user }}</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>

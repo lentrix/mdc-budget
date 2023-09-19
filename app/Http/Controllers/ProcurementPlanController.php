@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Budget;
 use App\Models\ProcurementPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,8 +34,21 @@ class ProcurementPlanController extends Controller
     }
 
     public function show(ProcurementPlan $pp) {
+        $budgets = Budget::whereHas('procurementPlan', function($q1) {
+            $q1->where('active',1);
+        })->get()
+        ->map(function($budget, $idx) {
+            return [
+                'department' => $budget->department->name,
+                'threshold' => $budget->department->threshold,
+                'appropriation' => $budget->totalAppropriations,
+                'user' => $budget->department->user->full_name
+            ];
+        });
+
         return inertia('Procurement/Show',[
-            'pp'=>$pp
+            'pp'=>$pp,
+            'budgets' => $budgets
         ]);
     }
 

@@ -39,6 +39,7 @@
         description: '',
         id: null
     })
+    let selectedItem = ref({})
 
     function searchItem() {
         if(searchName.value.length >= 3) {
@@ -53,6 +54,7 @@
     }
 
     function addItem(item) {
+        selectedItem.value = item
         showSearchResult.value = false
         searchData.value = []
         form.item_id = item.id
@@ -62,7 +64,7 @@
     }
 
     function submitItem() {
-        if(form.price!=searchData.price && (form.remarks=='' || form.remarks==null)) {
+        if(form.price!=selectedItem.value.regular_price && (form.remarks=='' || form.remarks==null)) {
             alert('You have to provide a reason for changing the price in the remarks field.')
             return
         }

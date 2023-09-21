@@ -42,7 +42,8 @@ class ProcurementPlanController extends Controller
                 'department' => $budget->department->name,
                 'threshold' => $budget->department->threshold,
                 'appropriation' => $budget->totalAppropriations,
-                'user' => $budget->department->user->full_name
+                'user' => $budget->department->user->full_name,
+                'departmentId' => $budget->department_id
             ];
         });
 

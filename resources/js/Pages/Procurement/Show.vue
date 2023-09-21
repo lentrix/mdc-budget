@@ -29,6 +29,7 @@ const props = defineProps({
                                     <th class="text-right">Budget Threshold</th>
                                     <th class="text-right">Current Appropriation</th>
                                     <th>Prepared by</th>
+                                    <th>...</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -37,6 +38,9 @@ const props = defineProps({
                                     <td class="text-right">{{ b.threshold.toLocaleString() }}</td>
                                     <td class="text-right">{{ b.appropriation.toLocaleString() }}</td>
                                     <td>{{ b.user }}</td>
+                                    <td>
+                                        <Link :href="'/departments/' + b.departmentId"><i class="fa fa-folder-open"></i></Link>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

@@ -273,6 +273,7 @@
                 </div>
             </div>
         </div>
+
         <Modal :show="showModal">
             <div class="p-6">
                 <div>Are you sure you want to delete this item?</div>

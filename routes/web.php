@@ -4,6 +4,7 @@ use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ItemRequestController;
 use App\Http\Controllers\ProcurementPlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -40,6 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/items',[ItemController::class, 'index']);
+
+
     Route::middleware('role:admin')->group(function() {
         Route::patch('/users/role/{user}',[UserController::class, 'assign']);
         Route::get('/users/create',[UserController::class, 'create']);
@@ -66,6 +70,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('categories', CategoryController::class);
 
         // Route::resource('items', ItemController::class);
+        Route::get('/items/create', [ItemController::class,'create']);
+        Route::post('/items', [ItemController::class, 'store']);
+        Route::get('/items/{item}',[ItemController::class, 'show']);
+        Route::get('/items/{item}/edit',[ItemController::class, 'edit']);
+        Route::patch('/items/{item}', [ItemController::class, 'update']);
+
 
         Route::post('/budgets/{budget}/approve', [BudgetController::class,'approve']);
         Route::post('/budgets/{budget}/retract-approval', [BudgetController::class,'retractApproval']);
@@ -77,7 +87,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/budgets/{budget}/add-item',[BudgetController::class, 'addItem']);
         Route::get('/budgets',[BudgetController::class, 'index']);
 
-        Route::get('/items',[ItemController::class, 'index']);
+        Route::get('/item-requests', [ItemRequestController::class, 'index']);
+        Route::post('/item-requests', [ItemRequestController::class, 'store']);
+
     });
 
 });

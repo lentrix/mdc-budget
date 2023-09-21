@@ -34,8 +34,9 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
+                'permissions' => $request->user()?->getAllPermissions()->pluck('name')
             ],
-            'active_pp'=>ProcurementPlan::getActive(),
+            // 'active_pp'=>ProcurementPlan::getActive(),
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),

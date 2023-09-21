@@ -13,7 +13,8 @@ class ItemController extends Controller
         $items = Item::orderBy('item_name')->get();
 
         return inertia('Items/Index',[
-            'items' => $items
+            'items' => $items,
+            'canManageItems' => auth()->user()->can('manage-items')
         ]);
     }
 

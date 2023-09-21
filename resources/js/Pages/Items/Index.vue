@@ -4,20 +4,24 @@
 
     const props = defineProps({
         items: Array,
+        canManageItems: Boolean
     })
 
 </script>
 
 <template>
-    <Head title="Categories" />
+    <Head title="Items" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-700 leading-tight">Items</h2>
         </template>
         <template #subnav>
-            <Link href="/items/create" class="button1">
+            <Link href="/items/create" class="button1" v-if="canManageItems">
                 <i class="fa fa-plus"></i> Create Item
+            </Link>
+            <Link href="/item-requests" class="button1" v-else>
+                <i class="fa-solid fa-upload"></i> Request Item Entry
             </Link>
         </template>
 
@@ -33,7 +37,7 @@
                                     <th>Unit</th>
                                     <th>Category</th>
                                     <th class="text-right">Regular Price</th>
-                                    <th class="text-center">...</th>
+                                    <th class="text-center" v-if="canManageItems">...</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,7 +47,7 @@
                                     <td>{{ item.unit }}</td>
                                     <td>{{ item.categoryName }}</td>
                                     <td class="text-right">{{ item.formattedRegularPrice }}</td>
-                                    <td class="text-center">
+                                    <td class="text-center" v-if="canManageItems">
                                         <Link :href="'/items/' + item.id">
                                             <i class="fa fa-folder-open"></i>
                                         </Link>

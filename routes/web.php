@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('categories', CategoryController::class);
 
-        Route::resource('items', ItemController::class);
+        // Route::resource('items', ItemController::class);
 
         Route::post('/budgets/{budget}/approve', [BudgetController::class,'approve']);
         Route::post('/budgets/{budget}/retract-approval', [BudgetController::class,'retractApproval']);
@@ -76,6 +76,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/budgets/{budget}/manage',[BudgetController::class,'manage']);
         Route::post('/budgets/{budget}/add-item',[BudgetController::class, 'addItem']);
         Route::get('/budgets',[BudgetController::class, 'index']);
+
+        Route::get('/items',[ItemController::class, 'index']);
     });
 
 });

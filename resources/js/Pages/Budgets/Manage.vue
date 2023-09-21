@@ -118,7 +118,7 @@
         <div class="py-12">
             <div class="mx-auto sm:px-6 lg:px-8 sm:flex sm:justify-between">
                 <div style="width: 270px!important" class="pr-4">
-                    <div class="p-6 text-gray-900 bg-white shadow rounded-lg">
+                    <div class="p-6 text-gray-900 bg-white shadow rounded-lg" v-if="budget.status=='pending'">
                         <h4 class="text-2xl">Item Entry</h4>
                         <hr>
                         <form @submit.prevent="submitItem">
@@ -180,6 +180,15 @@
                             </button>
                         </form>
                     </div>
+                    <div class="p-6 text-gray-900 bg-white shadow rounded-lg" v-if="budget.status=='approved'">
+                        <h4 class="text-2xl">
+                            Approved Budget
+                        </h4>
+
+                        <div class="bg-green-200 border-2 mt-3 border-green-600 p-4 rounded">
+                            This budget is already approved and no longer open for editing.
+                        </div>
+                    </div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex-1">
                     <div class="p-6 text-gray-900">
@@ -188,7 +197,7 @@
                         <table class="table mb-6">
                             <thead>
                                 <tr>
-                                    <th class="bg-gray-800 text-white" colspan="7">Operational Expenses</th>
+                                    <th class="bg-gray-800 text-white" :colspan="budget.status=='pending' ? '7' : '6'">Operational Expenses</th>
                                 </tr>
                                 <tr>
                                     <th class="w-[20%]">Item</th>
@@ -197,7 +206,7 @@
                                     <th class="w-[5%] text-center">Qty</th>
                                     <th class="w-[12%]">Price</th>
                                     <th class="w-[12%]">Total</th>
-                                    <th class="text-center">...</th>
+                                    <th class="text-center" v-if="budget.status=='pending'">...</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -212,16 +221,16 @@
                                     <td class="text-center">{{ item.qty }}</td>
                                     <td class="text-right">{{ item.formattedCustomPrice }}</td>
                                     <td class="text-right">{{ item.formattedTotal }}</td>
-                                    <td class="text-center">
+                                    <td class="text-center" v-if="budget.status=='pending'">
                                         <button class="text-red-700" @click="attemptDelete(item)">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="5" class="font-bold">TOTAL</td>
+                                    <td :colspan="budget.status=='pending' ? '5' : '5'" class="font-bold">TOTAL</td>
                                     <td class="text-right font-bold">{{ opexTotal }}</td>
-                                    <td>&nbsp;</td>
+                                    <td v-if="budget.status=='pending'">&nbsp;</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -229,7 +238,7 @@
                         <table class="table mb-6">
                             <thead>
                                 <tr>
-                                    <th class="bg-gray-800 text-white" colspan="7">Capital Expenditures</th>
+                                    <th class="bg-gray-800 text-white" :colspan="budget.status=='pending' ? '7' : '6'">Capital Expenditures</th>
                                 </tr>
                                 <tr>
                                     <th class="w-[20%]">Item</th>
@@ -238,7 +247,7 @@
                                     <th class="w-[5%] text-center">Qty</th>
                                     <th class="w-[12%]">Price</th>
                                     <th class="w-[12%]">Total</th>
-                                    <th class="text-center">...</th>
+                                    <th class="text-center" v-if="budget.status=='pending'">...</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -249,16 +258,16 @@
                                     <td class="text-center">{{ item.qty }}</td>
                                     <td class="text-right">{{ item.formattedCustomPrice }}</td>
                                     <td class="text-right">{{ item.formattedTotal }}</td>
-                                    <td class="text-center">
+                                    <td class="text-center" v-if="budget.status=='pending'">
                                         <button class="text-red-700" @click="attemptDelete(item)">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="5" class="font-bold">TOTAL</td>
+                                    <td :colspan="budget.status=='pending' ? '5' : '4'" class="font-bold">TOTAL</td>
                                     <td class="text-right font-bold">{{ capexTotal }}</td>
-                                    <td>&nbsp;</td>
+                                    <td v-if="budget.status=='pending'">&nbsp;</td>
                                 </tr>
                             </tbody>
                         </table>

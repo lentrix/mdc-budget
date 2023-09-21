@@ -21,7 +21,10 @@
             <div class="sm:px-6 lg:px-8 grid grid-cols-2 gap-6">
                 <div class="p-6 bg-white shadow rounded-lg" v-for="(budget, index) in budgets" :key="budget.id">
                     <div class="flex justify-between">
-                        <h4 class="text-2xl">{{ budget.department.name }}</h4>
+                        <div>
+                            <h4 class="text-2xl">{{ budget.department.name }}</h4>
+                            <span class="text-sm font-italic"><b>Status:</b> <span :class="'text-' + (budget.status=='pending' ? 'orange' : 'green') + '-700 font-bold'">{{ budget.status }}</span></span>
+                        </div>
                         <Link :href="'/budgets/' + budget.id + '/manage'" class="button2">
                             <i class="fa fa-folder-open"></i> Manage Budget
                         </Link>

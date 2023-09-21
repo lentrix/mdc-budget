@@ -92,4 +92,22 @@ class BudgetController extends Controller
         $budgetItem->delete();
         return back()->with('Info','A budget item has been deleted.');
     }
+
+    public function approve(Budget $budget) {
+        $budget->status = 'approved';
+        $budget->approved_at = now();
+        $budget->approved_by = auth()->user()->id;
+        $budget->save();
+
+        return back()->with('Info','This budget has been approved.');
+    }
+
+    public function retractApproval(Budget $budget) {
+        $budget->status = "pending";
+        $budget->approved_by = null;
+        $budget->approved_at = null;
+        $budget->save();
+
+        return back()->with('Info','The approval of this budget has been retracted.');
+    }
 }

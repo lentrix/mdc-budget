@@ -47,13 +47,18 @@ class DepartmentController extends Controller
 
     public function show(Department $dept) {
         $dept->load('user');
+        $budget = $dept->activeBudget;
+        $budget->load('approvedBy');
+
         return inertia('Departments/Show',[
             'dept' => $dept,
-            'opex' => $dept->activeBudget->getItemsByType('opex'),
-            'capex' => $dept->activeBudget->getItemsByType('capex'),
-            'opexTotal' => $tot_opex = $dept->activeBudget->categoryTotal('opex'),
-            'capexTotal' => $tot_capex = $dept->activeBudget->categoryTotal('capex'),
-            'total' => ($tot_opex+$tot_capex)
+            'opex' => $budget->getItemsByType('opex'),
+            'capex' => $budget->getItemsByType('capex'),
+            'opexTotal' => $tot_opex = $budget->categoryTotal('opex'),
+            'capexTotal' => $tot_capex = $budget->categoryTotal('capex'),
+            'total' => ($tot_opex+$tot_capex),
+            'budget' => $budget,
+            'canReview' => auth()->user()->can('review-budget')
         ]);
     }
 

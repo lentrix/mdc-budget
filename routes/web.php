@@ -66,6 +66,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('categories', CategoryController::class);
 
         Route::resource('items', ItemController::class);
+
+        Route::post('/budgets/{budget}/approve', [BudgetController::class,'approve']);
+        Route::post('/budgets/{budget}/retract-approval', [BudgetController::class,'retractApproval']);
     });
 
     Route::middleware('can:manage-budget')->group(function(){

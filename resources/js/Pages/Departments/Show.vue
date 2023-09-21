@@ -10,7 +10,9 @@ const props = defineProps({
     opexTotal: Number,
     capexTotal: Number,
     total: Number,
-    remarks: String
+    remarks: String,
+    budget: Object,
+    canReview: Boolean
 })
 
 </script>
@@ -118,6 +120,31 @@ const props = defineProps({
                             </Link>
                         </div>
                     </div>
+
+                    <div class="bg-white rounded shadow p-6 mt-6">
+                        <h4 class="text-xl">Budget Status</h4>
+
+                        <div class="flex flex-col" v-if="budget.status=='pending'">
+                            <div class="text-orange-700 font-bold text-xl border border-orange-700 mt-3 text-center p-2 rounded">Pending</div>
+                            <Link :href="'/budgets/' + budget.id + '/approve'"
+                                v-if="canReview"
+                                method="post" as="button"
+                                class="text-center mt-6 bg-green-600 p-2 rounded text-white hover:bg-green-500 duration-300">Approve Budget</Link>
+                        </div>
+
+                        <div class="flex flex-col" v-if="budget.status=='approved'">
+                            <div class="text-green-700 text-xl border border-green-700 mt-3 text-center p-2 rounded">
+                                <div class="font-bold ">Approved</div>
+                                <div class="text-sm">by {{ budget.approved_by.user_name }} on {{ budget.approved_at }}</div>
+                            </div>
+                            <Link :href="'/budgets/' + budget.id + '/retract-approval'"
+                                v-if="canReview"
+                                method="post" as="button"
+                                class="text-center mt-6 bg-orange-600 p-2 rounded text-white hover:bg-orange-500 duration-300">Retract Approval</Link>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>

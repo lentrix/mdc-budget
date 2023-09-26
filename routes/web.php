@@ -53,6 +53,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/users/edit/{user}', [UserController::class, 'edit']);
     });
 
+    Route::middleware('can:manage-items')->group(function(){
+        Route::get('/items/create', [ItemController::class,'create']);
+        Route::post('/items', [ItemController::class, 'store']);
+        Route::get('/items/{item}',[ItemController::class, 'show']);
+        Route::get('/items/{item}/edit',[ItemController::class, 'edit']);
+        Route::patch('/items/{item}', [ItemController::class, 'update']);
+
+        Route::get('/item-request/review',[ItemRequestController::class, 'review']);
+        Route::get('/item-request/review/{status}',[ItemRequestController::class, 'review']);
+        Route::patch('/item-request/{itemRequest}/accept',[ItemRequestController::class, 'accept']);
+        Route::patch('/item-request/{itemRequest}/reject',[ItemRequestController::class, 'reject']);
+    });
+
     Route::middleware('role:budget-officer')->group(function() {
         Route::get('/procurement-plans/create',[ProcurementPlanController::class, 'create']);
         Route::post('/procurement-plans/{pp}/activate',[ProcurementPlanController::class, 'activate']);
@@ -68,14 +81,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/departments',[DepartmentController::class, 'index']);
 
         Route::resource('categories', CategoryController::class);
-
-        // Route::resource('items', ItemController::class);
-        Route::get('/items/create', [ItemController::class,'create']);
-        Route::post('/items', [ItemController::class, 'store']);
-        Route::get('/items/{item}',[ItemController::class, 'show']);
-        Route::get('/items/{item}/edit',[ItemController::class, 'edit']);
-        Route::patch('/items/{item}', [ItemController::class, 'update']);
-
 
         Route::post('/budgets/{budget}/approve', [BudgetController::class,'approve']);
         Route::post('/budgets/{budget}/retract-approval', [BudgetController::class,'retractApproval']);

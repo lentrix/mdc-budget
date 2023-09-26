@@ -27,6 +27,7 @@ class RoleSeeder extends Seeder
         $admin->givePermissionTo($deactivateUser);
 
         $budgetOfficer = Role::create(['name'=>'budget-officer']);
+
         //budget officer permissions
         $createApp = Permission::create(['name'=>'create-app']);
         $reviewBudget = Permission::create(['name'=>'review-budget']);
@@ -37,6 +38,8 @@ class RoleSeeder extends Seeder
         $budgetOfficer->givePermissionTo($reviewBudget);
         $budgetOfficer->givePermissionTo($manageItems);
         $budgetOfficer->givePermissionTo($manageDepartments);
+
+        $admin->givePermissionTo($manageItems);
 
         $head = Role::create(['name'=>'office-head']);
         $manageBudget = Permission::create(['name'=>'manage-budget']);

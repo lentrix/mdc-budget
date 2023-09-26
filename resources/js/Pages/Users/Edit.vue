@@ -24,11 +24,22 @@ const submit = () =>{
     form.patch('/users/' + props.user.id)
 }
 
-function assign(role, action) {
+async function assign(role, action) {
     form2.role = role
     form2.action = action
 
     form2.patch('/users/role/' + props.user.id)
+    //update the permissions array in the page props.
+
+    //fetch all the permissions of the role.
+
+    if(action=='assign') {
+
+
+        //add all the permissions into the page props
+    }else {
+        //remove all the fetched permissions from the page props
+    }
 }
 
 </script>

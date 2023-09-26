@@ -12,8 +12,8 @@ class ItemRequest extends Model
         return $this->belongsTo('App\Models\Category');
     }
 
-    public function requestBy() {
-        return $this->belongsTo('App\Users','requested_by','id');
+    public function requestedBy() {
+        return $this->belongsTo('App\Models\User','requested_by','id');
     }
 
 }

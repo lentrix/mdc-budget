@@ -14,7 +14,6 @@ class ItemController extends Controller
 
         return inertia('Items/Index',[
             'items' => $items,
-            'canManageItems' => auth()->user()->can('manage-items')
         ]);
     }
 

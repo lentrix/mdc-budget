@@ -17,9 +17,14 @@
             <h2 class="font-semibold text-xl text-gray-700 leading-tight">Items</h2>
         </template>
         <template #subnav>
-            <Link href="/items/create" class="button1" v-if="canManageItems">
-                <i class="fa fa-plus"></i> Create Item
-            </Link>
+            <div v-if="$page.props.auth.permissions.includes('manage-items')" class="flex gap-2">
+                <Link href="/items/create" class="button1">
+                    <i class="fa fa-plus"></i> Create Item
+                </Link>
+                <Link href="/item-request/review" class="button1">
+                    <i class="fa-solid fa-upload"></i> Review Item Requests
+                </Link>
+            </div>
             <Link href="/item-requests" class="button1" v-else>
                 <i class="fa-solid fa-upload"></i> Request Item Entry
             </Link>
@@ -37,7 +42,7 @@
                                     <th>Unit</th>
                                     <th>Category</th>
                                     <th class="text-right">Regular Price</th>
-                                    <th class="text-center" v-if="canManageItems">...</th>
+                                    <th class="text-center" v-if="$page.props.auth.permissions.includes('manage-items')">...</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,7 +52,7 @@
                                     <td>{{ item.unit }}</td>
                                     <td>{{ item.categoryName }}</td>
                                     <td class="text-right">{{ item.formattedRegularPrice }}</td>
-                                    <td class="text-center" v-if="canManageItems">
+                                    <td class="text-center" v-if="$page.props.auth.permissions.includes('manage-items')">
                                         <Link :href="'/items/' + item.id">
                                             <i class="fa fa-folder-open"></i>
                                         </Link>

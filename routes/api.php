@@ -3,7 +3,6 @@
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/items/search', function(Request $request) {
     $items = Item::where('item_name','like',"%$request->name%");
     return response()->json($items->limit(50)->get());
-});
-
-Route::get('/user-roles/{role}', function(Role $role) {
-    return response()->json($role->permissions->pluck('name'));
 });

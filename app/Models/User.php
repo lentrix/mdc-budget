@@ -44,8 +44,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getBudgetsAttribute() {
-        $pp = ProcurementPlan::getActive();
+    public function getBudgets($state) {
+        $pp = null;
+        if(strcmp($state,"active")) $pp = ProcurementPlan::getActive();
+        else $pp = ProcurementPlan::getPreparatory();
 
         if(!$pp) return [];
 

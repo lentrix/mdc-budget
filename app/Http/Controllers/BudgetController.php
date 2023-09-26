@@ -13,7 +13,7 @@ class BudgetController extends Controller
     public function index() {
         $user = auth()->user();
 
-        $budgets = $user->budgets;
+        $budgets = $user->getBudgets("preparatory");
 
         $summaries = [];
 

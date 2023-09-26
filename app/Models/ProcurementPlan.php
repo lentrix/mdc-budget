@@ -21,7 +21,7 @@ class ProcurementPlan extends Model
      * get the Procurement Plan that is still
      * within the preparation period.
      */
-    public static function getPrepPeriod() {
+    public static function getPreparatory() {
         $now = Carbon::now();
         return static::where('prep_start','<', $now)
                 ->where('prep_end', '>', $now)->first();

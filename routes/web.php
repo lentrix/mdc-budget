@@ -70,6 +70,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/procurement-plans/create',[ProcurementPlanController::class, 'create']);
         Route::post('/procurement-plans/{pp}/activate',[ProcurementPlanController::class, 'activate']);
         Route::get('/procurement-plans/{pp}',[ProcurementPlanController::class, 'show']);
+        Route::patch('/procurement-plans/{pp}',[ProcurementPlanController::class, 'update']);
+        Route::get('/procurement-plans/{pp}/edit',[ProcurementPlanController::class, 'edit']);
         Route::get('/procurement-plans',[ProcurementPlanController::class,'index']);
         Route::post('/procurement-plans',[ProcurementPlanController::class, 'store']);
 

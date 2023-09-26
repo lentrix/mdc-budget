@@ -60,4 +60,23 @@ class ProcurementPlanController extends Controller
 
         return redirect('/procurement-plans/' . $pp->id)->with('Info','This procurement plan has been activated.');
     }
+
+    public function edit(ProcurementPlan $pp) {
+        return inertia('Procurement/Edit',[
+            'pp' => $pp
+        ]);
+    }
+
+    public function update(Request $request, ProcurementPlan $pp) {
+        $request->validate([
+            'title' => 'required',
+            'year'=>'integer|required',
+            'prep_start' => 'required',
+            'prep_end' => 'required',
+        ]);
+
+        $pp->update($request->all());
+
+        return redirect('/procurement-plans/' . $pp->id)->with('Info','This procurement plan has been updated.');
+    }
 }

@@ -47,6 +47,8 @@ class User extends Authenticatable
     public function getBudgetsAttribute() {
         $pp = ProcurementPlan::getActive();
 
+        if(!$pp) return [];
+
         $budgets = [];
 
         foreach(Department::where('user_id', $this->id)->get() as $dept) {

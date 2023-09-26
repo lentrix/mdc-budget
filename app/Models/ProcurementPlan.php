@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class ProcurementPlan extends Model
@@ -14,5 +15,15 @@ class ProcurementPlan extends Model
 
     public static function getActive() {
         return static::where('active',1)->first();
+    }
+
+    /**
+     * get the Procurement Plan that is still
+     * within the preparation period.
+     */
+    public static function getPrepPeriod() {
+        $now = Carbon::now();
+        return static::where('prep_start','<', $now)
+                ->where('prep_end', '>', $now)->first();
     }
 }

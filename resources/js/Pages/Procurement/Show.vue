@@ -35,8 +35,8 @@ const props = defineProps({
                             <tbody>
                                 <tr v-for="b in budgets" :key="b.id">
                                     <td>{{ b.department }}</td>
-                                    <td class="text-right">{{ b.threshold.toLocaleString() }}</td>
-                                    <td class="text-right">{{ b.appropriation.toLocaleString() }}</td>
+                                    <td class="text-right">{{ b.threshold?.toLocaleString() }}</td>
+                                    <td class="text-right">{{ b.appropriation?.toLocaleString() }}</td>
                                     <td>{{ b.user }}</td>
                                     <td>
                                         <Link :href="'/departments/' + b.departmentId"><i class="fa fa-folder-open"></i></Link>

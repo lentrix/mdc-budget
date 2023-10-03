@@ -6,6 +6,8 @@
         opex: Array,
         capex: Array
     })
+
+
 </script>
 
 <template>

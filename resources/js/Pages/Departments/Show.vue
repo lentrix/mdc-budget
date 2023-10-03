@@ -53,7 +53,7 @@ const props = defineProps({
                                 <tr>
                                     <th colspan="3" class="text-left">TOTAL OPEX</th>
                                     <th class="text-right font-bold">
-                                        {{ opexTotal.toLocaleString() }}
+                                        {{ opexTotal ? opexTotal.toLocaleString() : '' }}
                                     </th>
                                 </tr>
                             </tbody>
@@ -81,7 +81,7 @@ const props = defineProps({
                                 <tr>
                                     <th colspan="3" class="text-left">TOTAL CAPEX</th>
                                     <th class="text-right font-bold">
-                                        {{ capexTotal.toLocaleString() }}
+                                        {{ capexTotal ? capexTotal.toLocaleString() : '' }}
                                     </th>
                                 </tr>
                             </tbody>
@@ -124,7 +124,7 @@ const props = defineProps({
                     <div class="bg-white rounded shadow p-6 mt-6">
                         <h4 class="text-xl">Budget Status</h4>
 
-                        <div class="flex flex-col" v-if="budget.status=='pending'">
+                        <div class="flex flex-col" v-if="budget?.status=='pending'">
                             <div class="text-orange-700 font-bold text-xl border border-orange-700 mt-3 text-center p-2 rounded">Pending</div>
                             <Link :href="'/budgets/' + budget.id + '/approve'"
                                 v-if="canReview"
@@ -132,7 +132,7 @@ const props = defineProps({
                                 class="text-center mt-6 bg-green-600 p-2 rounded text-white hover:bg-green-500 duration-300">Approve Budget</Link>
                         </div>
 
-                        <div class="flex flex-col" v-if="budget.status=='approved'">
+                        <div class="flex flex-col" v-if="budget?.status=='approved'">
                             <div class="text-green-700 text-xl border border-green-700 mt-3 text-center p-2 rounded">
                                 <div class="font-bold ">Approved</div>
                                 <div class="text-sm">by {{ budget.approved_by.user_name }} on {{ budget.approved_at }}</div>
